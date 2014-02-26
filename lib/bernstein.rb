@@ -1,5 +1,9 @@
 require "bernstein/version"
+require "bernstein/storage"
+require "bernstein/project"
 
 module Bernstein
-  # Your code goes here...
+	def self.hello
+		"hello!"
+	end
 end

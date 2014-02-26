@@ -1,7 +1,16 @@
 # Bernstein
 
 Bernstein, German for "amber", is a no-bullshit tool for project management and
-time tracking. 
+time tracking. I chose the name because amber is the colour between red and
+green on traffic lights. Traffic represents the movement of a project towards
+completion. Red represents problems, bugs, and other issues preventing
+progress. Green represents the resolution of these problems. Amber sits between
+the problems and their resolutions, helping us figure out what the hell needs
+to be done.
+
+It is also not implemented. This document outlines my motivations, the desired
+behaviour of the finished program, and serves as a simple roadmap for
+development.
 
 Bernstein has some basic project-root finding powers. It will search for the
 upwards-nearest ocurrence of a `.git`, `.hg`, `Makefile`, `Rakefile`, or
@@ -11,7 +20,44 @@ as the project root. You can create one with `bernstein init`.
 
 Bernstein is inherently offline operating. You can collaborate with others by
 placing your `.bernstein` folder in a service such as Dropbox, or by checking
-it into version control.
+it into version control. I'm concerned about cluttering the commit history with
+project updates, though.
+
+## Storage
+
+A `.bernstein` file system entry is a folder which holds local data and
+configuration for Bernstein. Every entry is represented by a file or folder in
+this tree. See the tree represented below for an example.
+
+				.
+				├── config.yaml
+				└── projects
+						└── bug
+								└── cli-accepts-erroneous-input
+										├── issues
+										│   └── basic-validation
+										│       ├── messages
+										│       │   ├── 1393370530.yaml
+										│       │   ├── 1393370533.yaml
+										│       │   └── 1393370536.yaml
+										│       └── settings.yaml
+										├── messages
+										│   ├── 1393370409.yaml
+										│   ├── 1393370415.yaml
+										│   └── 1393370419.yaml
+										└── settings.yaml
+
+## Problems
+
+An entry identifier such as 'bug/cli-accepts-erroneous-input/basic-validation'
+is not a straight path in the file system. The actual path for the above entry
+would be `projects/bug/cli-accepts-erroneous-input/issues/basic-validation'.
+This presents the issue of knowing where the project identifier ends and where
+the issue identifier starts. I could build an array of strings containing all
+known project identifiers, and then matching against the given path. When a
+match is found, remove the project identifier from the path. What remains must
+be the issue identifier. Surprisingly, the first string function that came to
+mind with this was strcmp().
 
 ## Git integration
 
