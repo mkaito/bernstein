@@ -27,9 +27,10 @@ project updates, though.
 
 A `.bernstein` file system entry is a folder which holds local data and
 configuration for Bernstein. Every entry is represented by a file or folder in
-this tree. See the tree represented below for an example.
+this tree. See the tree represented below for an example of a single project,
+with a single issue and some messages. All data is marshalled in YAML.
 
-				.
+				.bernstein
 				├── config.yaml
 				└── projects
 						└── bug
@@ -61,8 +62,8 @@ mind with this was strcmp().
 
 ## Git integration
 
-Creating a project will create a branch with the same name. Merging the branch
-into master or develop (configurable), marks the project as done and archives
+Creating an issue will create a branch with the same name. Merging the branch
+into master or develop (configurable), marks the issue as complete and archives
 it. Tasks can be closed via commit messages such as
 "Fixes bug/cli/input-verification".
 
@@ -70,29 +71,29 @@ Add flags to supress automatic stuff. Allow to configure behaviour.
 
 ## Terminology, workflow, and purpose.
 
-A "project", in bernstein, is not meant to be as big and overarching as you
-might think. Working on fixing a bug is a project. Fixing up some documentation
-is another project. For anything you would create a new branch in git, a
-project is the right size.
+An "issue" is a problem that needs to be solved, a feature that needs to be
+implemented, an enhancement that needs to happen. Something that needs to be
+done but is too big for a single "task".
 
-A "task" is something that needs to be worked on. A single step towards project
+A "task" is something that needs to be worked on. A single step towards issue
 completion. Like entries in a TODO list. Time is tracked on the task level. You
 can clock in to a task, and clock out. Marking a task as completed
 automatically clocks you out.
 
-A "discussion" is a stream of messages attached to either a project or a task.
-Each message is cryptographically signed by its author.
+A "discussion" is a stream of messages attached to either an issue  or a task.
+Each message is cryptographically signed by its author, and Bernstein will
+reject unsigned messages or messages with invalid signatures.
 
-Generally speaking, a project is a large task within a development project.
-Each project is divided into smaller tasks. Most of the time, all tasks in a
-project will be carried out by the same person, which is why the assignment
+Generally speaking, an issue is a large task within a development project.
+Each issue is divided into smaller tasks. Most of the time, all tasks in an
+issue will be carried out by the same person, which is why the assignment
 defaults to yourself. However, you might need someone else to fix something for
-you. To formalize this, you assign them a task.
+you. To formalize this, you assign them a task, and they will see it.
 
 ## Identifiers
 
-Projects and tasks are uniquely identified by a path-like string, where tasks
-are represented "inside" their projects, as if their were files in a folder. I
+Issues and tasks are uniquely identified by a path-like string, where tasks
+are represented "inside" their issues, as if their were files in a folder. I
 suggest you keep the path tokens succint and simple. For more verbose prose,
 you can use the discussion feature.
 
@@ -104,8 +105,8 @@ entry to allow for more verbose description to be filled in.
 		$ bernstein init
 		.bernstein successfully created
 
-		$ bernstein project create -d bug/cli-accepts-erroneous-input
-		Project bug/42 has been created.
+		$ bernstein issue create -d bug/cli-accepts-erroneous-input
+		issue bug/42 has been created.
 		Switched to a new branch 'bug/cli-accepts-erroneous-input'
 
 		$ bernstein task create -p high -d bug/cli-accepts-erroneous-input/basic-verification
@@ -113,10 +114,10 @@ entry to allow for more verbose description to be filled in.
 
 		$ bernstein activity
 		TASK (mkaito) bug/cli-accepts-erroneous-input/basic-verification was created by mkaito.
-		PROJECT bug/cli-accepts-erroneous-input was created by mkaito.
+		issue bug/cli-accepts-erroneous-input was created by mkaito.
 
 		$ bernstein show bug/cli-accepts-erroneous-input
-		Project bug/cli-accepts-erroneous-input.
+		issue bug/cli-accepts-erroneous-input.
 		No time registers found.
 
 		mkaito:
@@ -126,7 +127,7 @@ entry to allow for more verbose description to be filled in.
 			can't.
 
 		$ bernstein show bug/cli-accepts-erroneous-input/basic-verification
-		Task basic-verification in project bug/cli-accepts-erroneous-input.
+		Task basic-verification in issue bug/cli-accepts-erroneous-input.
 		Assigned to mkaito.
 		No time registers found.
 
@@ -152,6 +153,8 @@ entry to allow for more verbose description to be filled in.
 		$ bernstein activity
 		TASK (mkaito) bug/cli-accepts-erroneous-input/basic-verification had 2:05 clocked by mkaito.
 		TASK (mkaito) bug/cli-accepts-erroneous-input/basic-verification was created by mkaito.
-		PROJECT bug/cli-accepts-erroneous-input was created by mkaito.
+		ISSUE bug/cli-accepts-erroneous-input was created by mkaito.
+
+		$ bernstein list
 
 vim:ft=markdown:fo=tn:tw=79
