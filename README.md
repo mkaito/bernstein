@@ -1,5 +1,7 @@
 # Bernstein
 
+Bernstein Spec version 0.8
+
 Bernstein, German for "amber", is a no-bullshit tool for project management and
 time tracking. I chose the name because amber is the colour between red and
 green on traffic lights. Traffic represents the movement of a project towards
@@ -65,14 +67,11 @@ either a green checkmark or a red cross next to the message header.
 										│   └── 1393370420.sig
 										└── data.yaml
 
-## Git integration
+## Implementation
 
-Creating an issue will create a branch with the same name. Merging the branch
-into master or develop (default, configurable), marks the issue as complete and
-archives it. Tasks can be closed via commit messages such as "Fixes
-bug/cli:input-verification".
-
-Add cli flags to suppress automatic stuff. Allow to configure behaviour.
+Preliminary exploration suggests I should use Bash to write Bernstein. I would,
+however, like to consider a compiled language, for speed and ease of
+distribution of the resulting binaries. Suggestions are most welcome.
 
 ## Terminology, workflow, and purpose.
 
@@ -98,7 +97,11 @@ formalize this, you assign them a task, and they will see it.
 
 Bernstein is not a public bug tracker. Use something else for that instead. It
 is an internal tool, intended to help plan and streamline work effort in a
-development team.
+development team. The suggested approach is simply manually "importing" issues
+and tasks from a public tracker, as any automated would inherently turn
+bernstein into a CLI client for any public tracker service you might use. Use
+bernstein for internal book keeping, and use something else for public issue
+discussion.
 
 ## Identifiers
 
