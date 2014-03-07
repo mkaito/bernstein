@@ -40,9 +40,9 @@ difficulty.
 A `.bernstein` file system entry is a folder which holds local data and
 configuration for Bernstein. Every entry is represented by a file or folder in
 this tree. See the tree represented below for an example of a single issue,
-with a single task and some messages. All data is serialized to YAML.  Issue
-and task data and messages cryptographically signed. (Why and for what
-purpose?)
+with a single task and some messages. All data is serialized to YAML.  Messages
+can be signed. When a signature is found, Bernstein will verify it, and display
+either a green checkmark or a red cross next to the message header.
 
 				.bernstein
 				├── config.yaml
@@ -53,22 +53,17 @@ purpose?)
 										│   └── basic-validation
 										│       ├── messages
 										│       │   ├── 1393370530.yaml
-										│       │   ├── 1393370530.sig
 										│       │   ├── 1393370535.yaml
 										│       │   ├── 1393370535.sig
 										│       │   ├── 1393370540.yaml
 										│       │   └── 1393370540.sig
-										│       ├── data.yaml
-										│       └── data.sig
+										│       └── data.yaml
 										├── messages
 										│   ├── 1393370410.yaml
-										│   ├── 1393370410.sig
 										│   ├── 1393370415.yaml
-										│   ├── 1393370415.sig
 										│   ├── 1393370420.yaml
 										│   └── 1393370420.sig
-										├── data.yaml
-										└── data.sig
+										└── data.yaml
 
 ## Git integration
 
@@ -78,9 +73,6 @@ archives it. Tasks can be closed via commit messages such as "Fixes
 bug/cli:input-verification".
 
 Add cli flags to suppress automatic stuff. Allow to configure behaviour.
-
-Bernstein keeps track of what your HEAD was when you last pulled, and can
-display changes since then with `bernstein activity --recent`.
 
 ## Terminology, workflow, and purpose.
 
@@ -103,6 +95,10 @@ divided into smaller tasks. Most of the time, all tasks in an issue will be
 carried out by the same person, which is why the assignment defaults to
 yourself. However, you might need someone else to fix something for you. To
 formalize this, you assign them a task, and they will see it.
+
+Bernstein is not a public bug tracker. Use something else for that instead. It
+is an internal tool, intended to help plan and streamline work effort in a
+development team.
 
 ## Identifiers
 
@@ -149,25 +145,24 @@ Bernstein doesn't care.
 
 ## Example usage
 
-When giving the create commands the `-d` flag, Vim opens the newly created
-entry to allow for more verbose description to be filled in.
+When giving the create commands the `-d` flag, `$EDITOR` opens the newly
+created entry to allow for more verbose description to be filled in.
 
 	$ bernstein init
 	./.bernstein successfully created
 
 	$ bernstein create -d bug/cli-accepts-erroneous-input
-	issue bug/cli-accepts-erroneous-input has been created.
-	Switched to a new branch 'bug/cli-accepts-erroneous-input'
+	I bug/cli-accepts-erroneous-input has been created.
 
 	$ bernstein create -p high -d bug/cli-accepts-erroneous-input:basic-verification
-	Task bug/cli-accepts-erroneous-input/basic-verification created with high priority. Assigned to mkaito.
+	T bug/cli-accepts-erroneous-input/basic-verification created with high priority. Assigned to mkaito.
 
 	$ bernstein log
-	TASK (mkaito) bug/cli-accepts-erroneous-input/basic-verification was created by mkaito.
+	T (mkaito) bug/cli-accepts-erroneous-input/basic-verification was created by mkaito.
 	issue bug/cli-accepts-erroneous-input was created by mkaito.
 
 	$ bernstein show bug/cli-accepts-erroneous-input
-	issue bug/cli-accepts-erroneous-input.
+	I bug/cli-accepts-erroneous-input.
 	No time registers found.
 
 	mkaito:
@@ -177,15 +172,15 @@ entry to allow for more verbose description to be filled in.
 		can't.
 
 	$ bernstein show bug/cli-accepts-erroneous-input:basic-verification
-	Task basic-verification in issue bug/cli-accepts-erroneous-input.
+	T basic-verification in issue bug/cli-accepts-erroneous-input.
 	Assigned to mkaito.
 	No time registers found.
 
-	mkaito:
+	&#x2713; mkaito:
 		I'm going to implement some very basic input checking, and write a few
 		unit tests.
 
-	magbo:
+	&#x2717; magbo:
 		Make sure it works well with unicode.
 
 	mkaito:
@@ -201,8 +196,8 @@ entry to allow for more verbose description to be filled in.
 	adding 2:05 into the time register.
 
 	$ bernstein log
-	TASK (mkaito) bug/cli-accepts-erroneous-input:basic-verification had 2:05 clocked by mkaito.
-	TASK (mkaito) bug/cli-accepts-erroneous-input:basic-verification was created by mkaito.
-	ISSUE bug/cli-accepts-erroneous-input was created by mkaito.
+	T (mkaito) bug/cli-accepts-erroneous-input:basic-verification had 2:05 clocked by mkaito.
+	T (mkaito) bug/cli-accepts-erroneous-input:basic-verification was created by mkaito.
+	I bug/cli-accepts-erroneous-input was created by mkaito.
 
 vim:ft=markdown:fo=tn:tw=79
