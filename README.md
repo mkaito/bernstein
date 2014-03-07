@@ -27,15 +27,15 @@ project updates, though.
 
 A `.bernstein` file system entry is a folder which holds local data and
 configuration for Bernstein. Every entry is represented by a file or folder in
-this tree. See the tree represented below for an example of a single project,
+this tree. See the tree represented below for an example of a single issue,
 with a single issue and some messages. All data is marshalled in YAML.
 
 				.bernstein
 				├── config.yaml
-				└── projects
+				└── issues
 						└── bug
 								└── cli-accepts-erroneous-input
-										├── issues
+										├── tasks
 										│   └── basic-validation
 										│       ├── messages
 										│       │   ├── 1393370530.yaml
@@ -47,18 +47,6 @@ with a single issue and some messages. All data is marshalled in YAML.
 										│   ├── 1393370415.yaml
 										│   └── 1393370419.yaml
 										└── settings.yaml
-
-## Problems
-
-An entry identifier such as 'bug/cli-accepts-erroneous-input/basic-validation'
-is not a straight path in the file system. The actual path for the above entry
-would be `projects/bug/cli-accepts-erroneous-input/issues/basic-validation'.
-This presents the issue of knowing where the project identifier ends and where
-the issue identifier starts. I could build an array of strings containing all
-known project identifiers, and then matching against the given path. When a
-match is found, remove the project identifier from the path. What remains must
-be the issue identifier. Surprisingly, the first string function that came to
-mind with this was strcmp().
 
 ## Git integration
 

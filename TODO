@@ -1,0 +1,6 @@
+* Document nomenclature change:
+	projects -> issues
+	issues -> tasks
+
+* Document path format change:
+	({namespace}/)*project:({namespace}/)*task
