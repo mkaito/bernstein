@@ -118,31 +118,31 @@ arbitrary text to be attached to it. This text will be shown by `bernstein show
 
 An issue identifier
 
-		better-pretty-printing
+	better-pretty-printing
 
 A namespaced issue identifier
 
-		feature/better-pretty-printing
+	feature/better-pretty-printing
 
 Namespaces can be nested arbitrarily deep
 
-		feature/interface/printing/better-pretty-printing
+	feature/interface/printing/better-pretty-printing
 
 Issue identifiers are separated from task identifiers by a colon
 
-		better-pretty-printing:colourize-output
+	better-pretty-printing:colourize-output
 
 Issues can also be namespaced
 
-		better-pretty-printing:colours/colourize-output
+	better-pretty-printing:colours/colourize-output
 
 Of course, you can also nest them arbitrarily deep
 
-		better-pretty-printing:output/terminals/colours/colourize-output
+	better-pretty-printing:output/terminals/colours/colourize-output
 
 An example of both sides deeply namespaced
 
-		feature/interface/printing/better-pretty-printing:output/terminals/colours/colourize-output
+	feature/interface/printing/better-pretty-printing:output/terminals/colours/colourize-output
 
 Whether and how deep you want to namespace things is entirely up to you.
 Bernstein doesn't care.
@@ -152,57 +152,57 @@ Bernstein doesn't care.
 When giving the create commands the `-d` flag, Vim opens the newly created
 entry to allow for more verbose description to be filled in.
 
-		$ bernstein init
-		./.bernstein successfully created
+	$ bernstein init
+	./.bernstein successfully created
 
-		$ bernstein create -d bug/cli-accepts-erroneous-input
-		issue bug/cli-accepts-erroneous-input has been created.
-		Switched to a new branch 'bug/cli-accepts-erroneous-input'
+	$ bernstein create -d bug/cli-accepts-erroneous-input
+	issue bug/cli-accepts-erroneous-input has been created.
+	Switched to a new branch 'bug/cli-accepts-erroneous-input'
 
-		$ bernstein create -p high -d bug/cli-accepts-erroneous-input:basic-verification
-		Task bug/cli-accepts-erroneous-input/basic-verification created with high priority. Assigned to mkaito.
+	$ bernstein create -p high -d bug/cli-accepts-erroneous-input:basic-verification
+	Task bug/cli-accepts-erroneous-input/basic-verification created with high priority. Assigned to mkaito.
 
-		$ bernstein log
-		TASK (mkaito) bug/cli-accepts-erroneous-input/basic-verification was created by mkaito.
-		issue bug/cli-accepts-erroneous-input was created by mkaito.
+	$ bernstein log
+	TASK (mkaito) bug/cli-accepts-erroneous-input/basic-verification was created by mkaito.
+	issue bug/cli-accepts-erroneous-input was created by mkaito.
 
-		$ bernstein show bug/cli-accepts-erroneous-input
-		issue bug/cli-accepts-erroneous-input.
-		No time registers found.
+	$ bernstein show bug/cli-accepts-erroneous-input
+	issue bug/cli-accepts-erroneous-input.
+	No time registers found.
 
-		mkaito:
-			We've had reports of the CLI accepting input that leads to errors when
-			trying to process it, especially when trying to read it back from a file.
-			We should try to sanitize input as good as we can, and reject anything we
-			can't.
+	mkaito:
+		We've had reports of the CLI accepting input that leads to errors when
+		trying to process it, especially when trying to read it back from a file.
+		We should try to sanitize input as good as we can, and reject anything we
+		can't.
 
-		$ bernstein show bug/cli-accepts-erroneous-input:basic-verification
-		Task basic-verification in issue bug/cli-accepts-erroneous-input.
-		Assigned to mkaito.
-		No time registers found.
+	$ bernstein show bug/cli-accepts-erroneous-input:basic-verification
+	Task basic-verification in issue bug/cli-accepts-erroneous-input.
+	Assigned to mkaito.
+	No time registers found.
 
-		mkaito:
-			I'm going to implement some very basic input checking, and write a few
-			unit tests.
+	mkaito:
+		I'm going to implement some very basic input checking, and write a few
+		unit tests.
 
-		magbo:
-			Make sure it works well with unicode.
+	magbo:
+		Make sure it works well with unicode.
 
-		mkaito:
-			Sure, I'll get it working.
+	mkaito:
+		Sure, I'll get it working.
 
-		$ bernstein begin bug/cli-accepts-erroneous-input:basic-verification
-		You have clocked into bug/cli-accepts-erroneous-input:basic-verification as of 14:25.
-		Please remember to clock back out. Should you forget, you can clock out
-		with a specific time or duration. See bernstein help task stop.
+	$ bernstein begin bug/cli-accepts-erroneous-input:basic-verification
+	You have clocked into bug/cli-accepts-erroneous-input:basic-verification as of 14:25.
+	Please remember to clock back out. Should you forget, you can clock out
+	with a specific time or duration. See bernstein help task stop.
 
-		$ bernstein stop 16:30
-		You have clocked out of bug/cli-accepts-erroneous-input:basic-verification as of 16:30,
-		adding 2:05 into the time register.
+	$ bernstein stop 16:30
+	You have clocked out of bug/cli-accepts-erroneous-input:basic-verification as of 16:30,
+	adding 2:05 into the time register.
 
-		$ bernstein log
-		TASK (mkaito) bug/cli-accepts-erroneous-input:basic-verification had 2:05 clocked by mkaito.
-		TASK (mkaito) bug/cli-accepts-erroneous-input:basic-verification was created by mkaito.
-		ISSUE bug/cli-accepts-erroneous-input was created by mkaito.
+	$ bernstein log
+	TASK (mkaito) bug/cli-accepts-erroneous-input:basic-verification had 2:05 clocked by mkaito.
+	TASK (mkaito) bug/cli-accepts-erroneous-input:basic-verification was created by mkaito.
+	ISSUE bug/cli-accepts-erroneous-input was created by mkaito.
 
 vim:ft=markdown:fo=tn:tw=79
